@@ -21,7 +21,7 @@ type Class struct {
 	BonusPoints    int       `json:"bonus_points"`
 	Points         points    `json:"points"`
 	Inventory      Inventory `json:"inventory"`
-	Equip          Equip     `json:"eqip"`
+	Equip          Equip     `json:"equip"`
 }
 
 type Inventory struct {
@@ -29,7 +29,17 @@ type Inventory struct {
 }
 
 type Equip struct {
-	Items []items.Item
+	//заглушки
+	Head   items.Helmet
+	Body   items.Chest
+	Hands  items.Gauntlets
+	Feet   items.Pants
+	Boots  items.Boots
+	Neck   items.Amulet
+	Weapon items.Sword
+	Shield items.Shield
+	Ring1  items.Ring
+	Ring2  items.Ring
 }
 
 type points struct {
@@ -41,7 +51,7 @@ type points struct {
 
 //start point for classes
 var (
-	Mage = Class{ClassName: "Mage", Race: r.Human.Name, Level: 4,
+	Mage = Class{ClassName: "Mage", Race: r.Human.Name, Level: 1,
 		Strength:       10,
 		Dexterity:      8,
 		BodyDifficulty: 13,

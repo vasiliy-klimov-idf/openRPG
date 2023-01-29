@@ -5,11 +5,10 @@ import (
 )
 
 type Item struct {
-	Name             string
-	Have             bool
-	Outfitted        bool
-	Rarity           string
-	ItemRequirements ItemRequirements
+	Sword  Sword
+	Armor  Armor
+	Shield Shield
+	Amulet Amulet
 }
 
 type Rarity struct {
