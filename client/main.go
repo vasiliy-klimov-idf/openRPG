@@ -1,12 +1,20 @@
 package main
 
 import (
-	"OpenRPG/basic"
 	"bufio"
+	"client/basic"
+	"client/core"
+	"client/page"
 	"fmt"
 	"github.com/manifoldco/promptui"
+	"github.com/vasiliy-klimov-idf/openrpg_core/src/player"
 	"os"
 	"runtime"
+	"time"
+)
+
+var (
+	p = player.Player{}
 )
 
 func startScreen() {
@@ -14,12 +22,10 @@ func startScreen() {
 	fmt.Println(basic.ColorBlue, basic.WelcomeText)
 	fmt.Println(basic.ColorBlue, basic.Owner)
 	fmt.Println(basic.ColorGreen, "Version: ", basic.AppVersion)
-
 	fmt.Println("")
-
 }
 
-func menu() {
+func startMenu() {
 	prompt := promptui.Select{
 		Label: "Menu",
 		Items: []string{"New Game", "Load Save Game", "Help", "Exit"},
@@ -33,6 +39,16 @@ func menu() {
 
 	if result == "New Game" {
 		fmt.Println("New Game")
+		p.Nickname = page.InputNick()
+
+		page.SelectRaceMenu()
+		p.Class.Race = core.SelectedRace
+
+		page.SelectClassMenu()
+		p.Class = core.SelectedClass
+
+		p.CreatePlayer(p.Nickname, p.Class, p.Class.Race)
+		p.PrintPlayerInfo()
 	} else if result == "Load Save Game" {
 		fmt.Println("To be continue ...")
 	} else if result == "Help" {
@@ -44,7 +60,6 @@ func menu() {
 }
 
 func loginPage() {
-
 	fmt.Print("Login: ")
 	reader := bufio.NewReader(os.Stdin)
 	login, _ := reader.ReadString('\n')
@@ -55,10 +70,13 @@ func loginPage() {
 	// Do something with pass
 	fmt.Println(string(pass))
 }
+
 func main() {
 	basic.TerminalCheck()
 	fmt.Println("OS", runtime.GOOS)
 	startScreen()
-	loginPage()
-	menu()
+	startMenu()
+
+	fmt.Println("To be continues...")
+	time.Sleep(30 * time.Second)
 }
