@@ -18,7 +18,6 @@ func TerminalCheck() {
 		return
 	}
 	if width <= 150 && height <= 80 {
-
 		fmt.Println("Terminal have a small size. Open in Terminal in FullScreen Mode.")
 		os.Exit(1)
 	}
