@@ -1,20 +1,16 @@
 package main
 
 import (
-	"bufio"
 	"client/basic"
 	"client/core"
 	"client/page"
+
 	"fmt"
 	"github.com/manifoldco/promptui"
-	"github.com/vasiliy-klimov-idf/openrpg_core/src/player"
+	"github.com/vasiliy-klimov-idf/openrpg_core/src/story"
 	"os"
 	"runtime"
 	"time"
-)
-
-var (
-	p = player.Player{}
 )
 
 func startScreen() {
@@ -25,10 +21,17 @@ func startScreen() {
 	fmt.Println("")
 }
 
-func startMenu() {
+func StartMenu() {
+	var MenuList []string
+	SaveFileExist := false
+	if SaveFileExist == true {
+		MenuList = []string{"New Game", "Continua", "Load Save Game", "Help", "Exit"}
+	} else {
+		MenuList = []string{"New Game", "Load Save Game", "Help", "Exit"}
+	}
 	prompt := promptui.Select{
 		Label: "Menu",
-		Items: []string{"New Game", "Load Save Game", "Help", "Exit"},
+		Items: MenuList,
 	}
 
 	_, result, err := prompt.Run()
@@ -38,17 +41,11 @@ func startMenu() {
 	}
 
 	if result == "New Game" {
-		fmt.Println("New Game")
-		p.Nickname = page.InputNick()
-
+		story.PlayerName = page.InputNick()
 		page.SelectRaceMenu()
-		p.Class.Race = core.SelectedRace
-
 		page.SelectClassMenu()
-		p.Class = core.SelectedClass
-
-		p.CreatePlayer(p.Nickname, p.Class, p.Class.Race)
-		p.PrintPlayerInfo()
+		core.InitPlayer()
+		fmt.Println("User created")
 	} else if result == "Load Save Game" {
 		fmt.Println("To be continue ...")
 	} else if result == "Help" {
@@ -59,23 +56,12 @@ func startMenu() {
 	}
 }
 
-func loginPage() {
-	fmt.Print("Login: ")
-	reader := bufio.NewReader(os.Stdin)
-	login, _ := reader.ReadString('\n')
-	login = login //заглушка
-
-	fmt.Printf("Password: ")
-	pass, _ := basic.GetPasswd()
-	// Do something with pass
-	fmt.Println(string(pass))
-}
-
 func main() {
+
 	basic.TerminalCheck()
 	fmt.Println("OS", runtime.GOOS)
 	startScreen()
-	startMenu()
+	StartMenu()
 
 	fmt.Println("To be continues...")
 	time.Sleep(30 * time.Second)

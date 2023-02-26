@@ -2,6 +2,7 @@ package page
 
 import (
 	"client/core"
+	"fmt"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
 	cl "github.com/vasiliy-klimov-idf/openrpg_core/src/classes"
@@ -10,6 +11,7 @@ import (
 )
 
 func SelectClassMenu() {
+	core.PageNumber = 3
 	if err := ui.Init(); err != nil {
 		log.Fatalf("failed to initialize termui: %v", err)
 	}
@@ -54,13 +56,10 @@ func SelectClassMenu() {
 			switch e.ID {
 			case "q", "<C-c>":
 				return
+
 			case "<Enter>":
-				for _, class := range cl.ClassArray {
-					if class.ClassName == l.Rows[l.SelectedRow] {
-						core.SelectedClass = class
-						return
-					}
-				}
+				fmt.Println("Goodd")
+				return
 			case "<Down>":
 				l.ScrollDown()
 				for _, class := range cl.ClassArray {
