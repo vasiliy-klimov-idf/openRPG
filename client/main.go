@@ -42,10 +42,13 @@ func StartMenu() {
 
 	if result == "New Game" {
 		story.PlayerName = page.InputNick()
+
 		page.SelectRaceMenu()
 		page.SelectClassMenu()
 		core.InitPlayer()
 		fmt.Println("User created")
+		time.Sleep(5 * time.Second)
+		basic.ClearConsole()
 	} else if result == "Load Save Game" {
 		fmt.Println("To be continue ...")
 	} else if result == "Help" {
@@ -62,6 +65,8 @@ func main() {
 	fmt.Println("OS", runtime.GOOS)
 	startScreen()
 	StartMenu()
+
+	page.TestTextPage()
 
 	fmt.Println("To be continues...")
 	time.Sleep(30 * time.Second)

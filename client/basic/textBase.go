@@ -10,5 +10,5 @@ var (
 
 	WelcomeText = "Welcome to OpenRPG."
 	Owner       = "Created by Redian23"
-	AppVersion  = "0.0.0.1 Pre-Pre-Alpha build"
+	AppVersion  = "0.0.2 Pre-Alpha build"
 )

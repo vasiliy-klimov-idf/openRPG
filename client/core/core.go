@@ -1,7 +1,6 @@
 package core
 
 import (
-	"fmt"
 	cl "github.com/vasiliy-klimov-idf/openrpg_core/src/classes"
 	"github.com/vasiliy-klimov-idf/openrpg_core/src/player"
 	"github.com/vasiliy-klimov-idf/openrpg_core/src/story"
@@ -32,7 +31,4 @@ func InitPlayer() {
 	P.Class = SelectedClass
 
 	P.CreatePlayer(P.Nickname, P.Class, P.Class.Race)
-	P.PrintPlayerInfo()
-	PageNumber = 4
-	fmt.Println("REmove this shit- > ", PageNumber)
 }

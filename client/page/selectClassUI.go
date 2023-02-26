@@ -1,7 +1,7 @@
 package page
 
 import (
-	"client/core"
+	"client/basic"
 	"fmt"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
@@ -11,7 +11,8 @@ import (
 )
 
 func SelectClassMenu() {
-	core.PageNumber = 3
+	basic.ClearConsole()
+
 	if err := ui.Init(); err != nil {
 		log.Fatalf("failed to initialize termui: %v", err)
 	}
@@ -100,6 +101,21 @@ func SelectClassMenu() {
 			}
 		default:
 			ui.Render(grid)
+			l.SelectedRowStyle = ui.Style{ui.ColorGreen, ui.ColorRed, ui.ModifierBold}
+			for _, class := range cl.ClassArray {
+				if class.ClassName == l.Rows[l.SelectedRow] {
+					//info, _ := json.MarshalIndent(class, "", "  ")
+					p.Text = "Name: " + class.ClassName + "\n" +
+						"Description: " + class.Description + "\n" +
+						"----------------[Stats]----------------" + "\n" +
+						"Strength: " + strconv.Itoa(class.Strength) + "\n" +
+						"Dexterity:  " + strconv.Itoa(class.Dexterity) + "\n" +
+						"BodyDifficulty: " + strconv.Itoa(class.BodyDifficulty) + "\n" +
+						"Intelligence: " + strconv.Itoa(class.Intelligence) + "\n" +
+						"Wisdom: " + strconv.Itoa(class.Wisdom) + "\n" +
+						"Charisma:" + strconv.Itoa(class.Charisma) + "\n"
+				}
+			}
 		}
 	}
 }

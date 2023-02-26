@@ -1,6 +1,7 @@
 package page
 
 import (
+	"client/basic"
 	"client/core"
 	ui "github.com/gizak/termui/v3"
 	"github.com/gizak/termui/v3/widgets"
@@ -9,7 +10,8 @@ import (
 )
 
 func SelectRaceMenu() {
-	core.PageNumber = 2
+	basic.ClearConsole()
+
 	if err := ui.Init(); err != nil {
 		log.Fatalf("failed to initialize termui: %v", err)
 	}
@@ -87,6 +89,14 @@ func SelectRaceMenu() {
 			}
 		default:
 			ui.Render(grid)
+			l.SelectedRowStyle = ui.Style{ui.ColorGreen, ui.ColorRed, ui.ModifierBold}
+			for _, race := range r.RaceArray {
+				if race.Name == l.Rows[l.SelectedRow] {
+					//info, _ := json.MarshalIndent(class, "", "  ")
+					p.Text = "Name: " + race.Name + "\n" +
+						"Description: " + race.Description + "\n"
+				}
+			}
 		}
 	}
 }
